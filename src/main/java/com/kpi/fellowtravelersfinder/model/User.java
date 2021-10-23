@@ -21,10 +21,18 @@ public class User {
     private String email;
     private String phone;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
     @OneToMany(mappedBy = "initiator")
     private List<Trip> trips;
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
 }

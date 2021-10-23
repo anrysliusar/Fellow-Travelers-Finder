@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
@@ -16,11 +15,11 @@ public class Trip {
     private Date DepartureDate;
     private Date ArrivalDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "initiator_id", nullable = false)
     private User initiator;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "route_id", referencedColumnName = "id")
     private Route route;
 
