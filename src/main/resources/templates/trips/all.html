@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:if="${trips.size()!=0}">
+  <h2>All available trips</h2>
+  <div th:each="trip : ${trips}" style="width: 26rem;">
+    <div>
+      <h3>
+        <span th:text="${trip.getRoute().getDeparturePoint()}"></span>
+        &#8594;
+        <span th:text="${trip.getRoute().getArrivalPoint()}"></span>
+      </h3>
+      <div>
+        <span>Date and time of departure: </span>
+        <span th:text="${trip.getDepartureDate()}"></span>
+      </div>
+      <div>
+        <span>Driver name: </span>
+        <span th:text="${trip.getInitiator().getUsername()}"></span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

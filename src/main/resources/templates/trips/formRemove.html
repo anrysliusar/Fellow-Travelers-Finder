@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+</head>
+<body>
+<form>
+  <div style="width: 20rem;">
+    <h5>Delete trip</h5>
+    <div>
+      <label>
+        Select Trip
+        <select id="delTrip">
+          <option th:each="trip : ${trips}" th:value="${trip.getId()}">
+            <span th:text="${trip.getRoute().getDeparturePoint()}"></span>
+            &#8594;
+            <span th:text="${trip.getRoute().getArrivalPoint()}"></span>
+            <div>
+              <span>Date and time of departure: </span>
+              <span th:text="${trip.getDepartureDate()}"></span>
+            </div>
+          </option>
+        </select>
+        <button onclick="deleteTrip()">Delete</button>
+      </label>
+    </div>
+  </div>
+</form>
+</body>
+<script>
+  function getSelectedTripId() {
+    let select = document.getElementById("delTrip");
+    return  select.options[select.selectedIndex].value;
+  }
+
+  function deleteTrip() {
+    $.ajax({
+      url: 'trips/'+getSelectedTripId(),
+      type: 'DELETE'
+    });
+  }
+</script>
+</html>

@@ -21,18 +21,7 @@ public class User {
     private String email;
     private String phone;
 
-    @OneToMany(mappedBy = "initiator")
+    @OneToMany(mappedBy = "initiator", cascade = {CascadeType.ALL})
     private List<Trip> trips;
 
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
-    }
 }

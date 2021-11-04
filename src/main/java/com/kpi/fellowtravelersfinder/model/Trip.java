@@ -3,6 +3,7 @@ package com.kpi.fellowtravelersfinder.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -12,15 +13,16 @@ public class Trip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private Date DepartureDate;
-    private Date ArrivalDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "initiator_id", nullable = false)
+    private String DepartureDate;
+    private String ArrivalDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "initiator_id")
     private User initiator;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "route_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "route_id")
     private Route route;
 
 

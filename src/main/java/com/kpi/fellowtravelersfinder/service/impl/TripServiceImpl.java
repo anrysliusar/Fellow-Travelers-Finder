@@ -13,6 +13,7 @@ import java.util.Optional;
 public class TripServiceImpl implements TripService {
     private final TripRepository tripRepository;
 
+
     @Autowired
     public TripServiceImpl(TripRepository tripRepository) {
         this.tripRepository = tripRepository;
@@ -29,12 +30,11 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public boolean save(Trip trip) {
+    public Trip save(Trip trip) {
         if (trip != null){
-            tripRepository.save(trip);
-            return true;
+            return tripRepository.save(trip);
         }
-        return false;
+        return null;
     }
 
     @Override
@@ -43,12 +43,12 @@ public class TripServiceImpl implements TripService {
             return false;
         }
         trip.setId(id);
-        return save(trip);
+        return save(trip) != null;
     }
 
     @Override
     public void deleteById(int id) {
-        tripRepository.deleteById(id);
+        if(tripRepository.existsById(id)) tripRepository.deleteById(id);
     }
 
 }

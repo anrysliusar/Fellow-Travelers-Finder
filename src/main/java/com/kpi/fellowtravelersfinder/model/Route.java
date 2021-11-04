@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,16 +19,6 @@ public class Route {
     private String departurePoint;
     private String arrivalPoint;
 
-    @OneToOne(mappedBy = "route")
-    private Trip trip;
-
-
-    @Override
-    public String toString() {
-        return "Route{" +
-                "id=" + id +
-                ", departurePoint='" + departurePoint + '\'' +
-                ", arrivalPoint='" + arrivalPoint + '\'' +
-                '}';
-    }
+    @OneToMany(mappedBy = "route", cascade = {CascadeType.ALL})
+    private List<Trip> trips;
 }

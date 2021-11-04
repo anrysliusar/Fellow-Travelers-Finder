@@ -22,7 +22,6 @@ public class RouteServiceImpl implements RouteService {
         this.tripRepository = tripRepository;
     }
 
-
     @Override
     public List<Route> getAll() {
         return routeRepository.findAll();
@@ -58,7 +57,15 @@ public class RouteServiceImpl implements RouteService {
     public boolean addRouteToTrip(Route route, int tripId) {
         Optional<Trip> trip = tripRepository.findById(tripId);
         if(trip.isEmpty()) return false;
+
+        Route routeExists = getIfRouteExists(route);
+        if(routeExists != null) {
+            trip.ifPresent(t -> t.setRoute(routeExists));
+            tripRepository.save(trip.get());
+            return true;
+        }
         trip.ifPresent(t -> t.setRoute(route));
+        tripRepository.save(trip.get());
         return true;
     }
 
@@ -70,4 +77,14 @@ public class RouteServiceImpl implements RouteService {
                 return true;
         return false;
     }
+
+    private Route getIfRouteExists(Route route){
+        List<Route> all = getAll();
+        for(var routeToCompare : all)
+            if(routeToCompare.getArrivalPoint().equals(route.getArrivalPoint()) &&
+                    routeToCompare.getDeparturePoint().equals(route.getDeparturePoint()))
+                return routeToCompare;
+        return null;
+    }
+
 }
