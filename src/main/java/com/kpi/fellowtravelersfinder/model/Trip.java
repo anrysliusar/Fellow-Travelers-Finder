@@ -21,7 +21,7 @@ public class Trip {
     @JoinColumn(name = "initiator_id")
     private User initiator;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "route_id")
     private Route route;
 

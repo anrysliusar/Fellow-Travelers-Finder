@@ -19,6 +19,6 @@ public class Route {
     private String departurePoint;
     private String arrivalPoint;
 
-    @OneToMany(mappedBy = "route", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "route")
     private List<Trip> trips;
 }
