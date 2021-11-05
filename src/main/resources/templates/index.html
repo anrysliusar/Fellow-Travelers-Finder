@@ -11,54 +11,7 @@
 </div>
 <div th:insert="trips/all.html"></div>
 <div th:insert="trips/formNew.html"></div>
-
 <div th:if="${trips.size() != 0}" th:insert="trips/formRemove.html"></div>
-<!--<form th:action="@{/trips}" method="post">-->
-<!--    <label>Departure Point</label><br>-->
-<!--    <input name="departurePoint" type="text"><br>-->
-<!--    <label>Arrival Point</label><br>-->
-<!--    <input name="arrivalPoint" type="text"><br>-->
-<!--    <label>Date of departure</label><br>-->
-<!--    <input name="dateDep" type="date"><br><br>-->
-<!--    <label>Date of arrival</label><br>-->
-<!--    <input name="dateArr" type="date"><br><br>-->
-<!--    <label>Your username:</label><br>-->
-<!--    <input name="username" type="text"><br><br>-->
-<!--    <input id="submit_final" type="submit" value="Submit"></td>-->
-<!--</form>-->
-<!--<div>-->
-<!--    <h2>Add new trip</h2>-->
-<!--    <form id="addTrip" th:action="@{/trips}" method="post">-->
-<!--        <label>Departure Point</label><br>-->
-<!--        <input name="departurePoint" type="text"><br>-->
-<!--        <label>Arrival Point</label><br>-->
-<!--        <input name="arrivalPoint" type="text"><br>-->
-<!--        <label>Date of departure</label><br>-->
-<!--        <input name="dateDep" type="date"><br><br>-->
-<!--        <label>Date of arrival</label><br>-->
-<!--        <input name="dateArr" type="date"><br><br>-->
-<!--        <label>Your username:</label><br>-->
-<!--        <input name="username" type="text"><br><br>-->
-<!--        <input type="submit" value="Submit">-->
-<!--    </form>-->
-<!--</div>-->
-
-<!--<div>-->
-<!--    <h2>Add new trip</h2>-->
-<!--    <form id="addTrip" th:action="@{/trips}" method="post" th:object="${tripForm}">-->
-<!--        <label>Departure Point</label><br>-->
-<!--        <input th:field="*{departurePoint}" type="text"><br>-->
-<!--        <label>Arrival Point</label><br>-->
-<!--        <input th:field="*{arrivalPoint}" type="text"><br>-->
-<!--        <label>Date of departure</label><br>-->
-<!--        <input th:field="*{dateDep}" type="date"><br><br>-->
-<!--        <label>Date of arrival</label><br>-->
-<!--        <input th:field="*{dateArr}" type="date"><br><br>-->
-<!--        <label>Your username:</label><br>-->
-<!--        <input th:field="*{username}" type="text"><br><br>-->
-<!--        <input type="submit" value="Submit">-->
-<!--    </form>-->
-<!--</div>-->
 </body>
 <script>
 
