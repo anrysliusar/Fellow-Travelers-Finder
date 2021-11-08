@@ -19,6 +19,7 @@
                             <span th:text="${trip.getRoute().getDeparturePoint()}"></span>
                             &#8594;
                             <span th:text="${trip.getRoute().getArrivalPoint()}"></span>
+                            <br />
                             <div>
                               <span>Date and time of departure: </span>
                               <span th:text="${trip.getDepartureDate()}"></span>
@@ -31,7 +32,6 @@
         </div>
     </form>
 </div>
-
 </body>
 <script>
   function getSelectedTripId() {
