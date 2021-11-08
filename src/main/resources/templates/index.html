@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>All trips</title>
-
-    </head>
+    <link rel="stylesheet" href="trips/styles/positioning.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 <body>
-<div>
-
+<div class="container">
+    <div class="row justify-content-center" th:insert="trips/all.html"></div>
+    <div class="row justify-content-center" th:insert="trips/formNew.html"></div>
+    <div class="row justify-content-center" th:if="${trips.size() != 0}" th:insert="trips/formRemove.html"></div>
 </div>
-<div th:insert="trips/all.html"></div>
-<div th:insert="trips/formNew.html"></div>
-<div th:if="${trips.size() != 0}" th:insert="trips/formRemove.html"></div>
 </body>
 <script>
 

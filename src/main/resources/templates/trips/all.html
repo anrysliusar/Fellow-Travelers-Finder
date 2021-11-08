@@ -6,8 +6,8 @@
     <title>Title</title>
 </head>
 <body>
-<div th:if="${trips.size()!=0}">
-  <h2>All available trips</h2>
+<div th:if="${trips.size()!=0}" class="container">
+  <h2>Available trips</h2>
   <div th:each="trip : ${trips}" style="width: 26rem;">
     <div>
       <h3>
@@ -16,7 +16,7 @@
         <span th:text="${trip.getRoute().getArrivalPoint()}"></span>
       </h3>
       <div>
-        <span>Date and time of departure: </span>
+        <span>Date of departure: </span>
         <span th:text="${trip.getDepartureDate()}"></span>
       </div>
       <div>
