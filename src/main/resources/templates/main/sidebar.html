@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="p-1">&#9776; Меню</div>
+<a href="/" class="p-1">Головна</a>
+<div th:switch="${canEdit}" class="p-1">
+  <div th:case="true">
+      <div class="p-1">Керування поїздками</div>
+      <ul>
+          <li><a href="/add" class="p-1">Додати</a></li>
+          <li><a href="/modify" class="p-1">Редагувати поїздку</a></li>
+          <li><a href="/delete" class="p-1">Видалити</a></li>
+      </ul>
+  </div>
+  <div th:case="*">
+      <a href="/search" class="p-1">Пошук поїздки</a>
+  </div>
+
+</div>
+</body>
+</html>

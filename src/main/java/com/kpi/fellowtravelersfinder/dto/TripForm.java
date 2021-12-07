@@ -1,9 +1,9 @@
 package com.kpi.fellowtravelersfinder.dto;
 
-import lombok.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
 
 @Data
 @Getter

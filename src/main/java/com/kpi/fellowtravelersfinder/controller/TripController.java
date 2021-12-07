@@ -25,38 +25,11 @@ public class TripController {
         this.routeService = routeService;
     }
 
-    @GetMapping()
-    public String trips(Model model){
-        var all = tripService.getAll();
-        model.addAttribute("trips", all);
-        model.addAttribute("formInput", new TripForm());
-
-        return "index";
-    }
-
-    @GetMapping("/all")
-    public String showTrips(Model model) {
-        model.addAttribute("trips", tripService.getAll());
-        return "trips/all";
-    }
-
     @GetMapping("/{id}")
     public String showTrip(@PathVariable int id, Model model) {
 
         model.addAttribute("chosenTrip", tripService.getById(id));
-        return "redirect:/trips";
-    }
-
-    @GetMapping("/new")
-    public String newTrips(Model model) {
-        model.addAttribute("formInput", new TripForm());
-        return "trips/formNew";
-    }
-
-    @GetMapping("/remove")
-    public String removeTrips(Model model) {
-        model.addAttribute("trips", tripService.getAll());
-        return "trips/formRemove";
+        return "index";
     }
 
     @PostMapping()
@@ -74,13 +47,16 @@ public class TripController {
             Trip saveTrip = tripService.save(trip);
 
             routeService.addRouteToTrip(route, saveTrip.getId());
+            System.out.println(1);
         }
-        return "redirect:/trips";
+        return "redirect:/add";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable int id) {
         tripService.deleteById(id);
-        return "redirect:/trips";
+
+        return "redirect:/delete";
     }
+
 }
