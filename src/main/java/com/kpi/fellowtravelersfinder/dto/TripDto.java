@@ -5,16 +5,16 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.Date;
+
 @Data
 @Getter
 @Setter
-public class TripForm {
+public class TripDto {
     private String departurePoint;
     private String arrivalPoint;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private String dateDep;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private String dateArr;
+    private Date dateDep;
+    private Date dateArr;
     private String username;
 
 

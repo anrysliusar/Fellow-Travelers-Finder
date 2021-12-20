@@ -1,22 +1,34 @@
 package com.kpi.fellowtravelersfinder.service.impl;
 
+import com.kpi.fellowtravelersfinder.dto.TripDto;
+import com.kpi.fellowtravelersfinder.model.Pageable;
+import com.kpi.fellowtravelersfinder.model.Route;
 import com.kpi.fellowtravelersfinder.model.Trip;
+
 import com.kpi.fellowtravelersfinder.repository.TripRepository;
+import com.kpi.fellowtravelersfinder.service.RouteService;
 import com.kpi.fellowtravelersfinder.service.TripService;
+import com.kpi.fellowtravelersfinder.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TripServiceImpl implements TripService {
     private final TripRepository tripRepository;
+    private final UserService userService;
+    private final RouteService routeService;
 
 
     @Autowired
-    public TripServiceImpl(TripRepository tripRepository) {
+    public TripServiceImpl(TripRepository tripRepository, UserService userService, RouteService routeService) {
         this.tripRepository = tripRepository;
+        this.userService = userService;
+        this.routeService = routeService;
     }
 
     @Override
@@ -25,8 +37,13 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public Optional<Trip> getById(int id) {
-        return tripRepository.findById(id);
+    public Trip getById(int id) {
+        Optional<Trip> byId = tripRepository.findById(id);
+        Trip trip = null;
+        if (byId.isPresent()){
+            trip = byId.get();
+        }
+        return trip;
     }
 
     @Override
@@ -50,5 +67,60 @@ public class TripServiceImpl implements TripService {
     public void deleteById(int id) {
         if(tripRepository.existsById(id)) tripRepository.deleteById(id);
     }
+
+    public Trip saveTripWithRoute(TripDto trip){
+        var userWrap = userService.getByUsername(trip.getUsername());
+        Trip saveTrip = null;
+        if(userWrap.isPresent()) {
+            var route = new Route();
+            route.setDeparturePoint(trip.getDeparturePoint());
+            route.setArrivalPoint(trip.getArrivalPoint());
+
+            var tripToSave = new Trip();
+            tripToSave.setDepartureDate(trip.getDateDep());
+            tripToSave.setArrivalDate(trip.getDateArr());
+            tripToSave.setInitiator(userWrap.get());
+            saveTrip = save(tripToSave);
+            routeService.addRouteToTrip(route, saveTrip.getId());
+        }
+        return saveTrip;
+    }
+
+
+
+    public List<Trip> findAllByRoute(String departurePoint, String arrivalPoint) {
+        return getAll().stream()
+                .filter(trip ->
+                            trip.getRoute().getDeparturePoint().equals(departurePoint) &&
+                                trip.getRoute().getArrivalPoint().equals(arrivalPoint))
+                .collect(Collectors.toList());
+    }
+
+    public List<Trip> findAllByDepartureDate(Date departureDate){
+        return getAll().stream()
+                .filter(trip -> trip
+                        .getDepartureDate()
+                        .after(departureDate))
+                .collect(Collectors.toList());
+    }
+
+    public List<Trip> findAllByArrivalDate(Date arrivalDate){
+        return getAll().stream()
+                .filter(trip -> trip
+                        .getDepartureDate()
+                        .before(arrivalDate))
+                .collect(Collectors.toList());
+    }
+
+    public List<Trip> findAllByRoute(String departurePoint, String arrivalPoint, Pageable pageable) {
+        return getAll().stream()
+                .filter(trip ->
+                        trip.getRoute().getDeparturePoint().equals(departurePoint) &&
+                                trip.getRoute().getArrivalPoint().equals(arrivalPoint))
+                .skip(pageable.getOffset())
+                .limit(pageable.getItemsCount())
+                .collect(Collectors.toList());
+    }
+
 
 }

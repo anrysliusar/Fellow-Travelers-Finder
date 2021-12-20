@@ -1,5 +1,6 @@
 package com.kpi.fellowtravelersfinder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,16 +15,18 @@ public class Trip {
     private int id;
 
 
-    private String DepartureDate;
-    private String ArrivalDate;
+    private Date DepartureDate;
+    private Date ArrivalDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "initiator_id")
+    @JsonIgnore
     private User initiator;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "route_id")
     private Route route;
+
 
 
 }

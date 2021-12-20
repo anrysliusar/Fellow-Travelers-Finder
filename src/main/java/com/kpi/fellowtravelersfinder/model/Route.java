@@ -1,5 +1,6 @@
 package com.kpi.fellowtravelersfinder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,5 +21,6 @@ public class Route {
     private String arrivalPoint;
 
     @OneToMany(mappedBy = "route")
+    @JsonIgnore
     private List<Trip> trips;
 }
