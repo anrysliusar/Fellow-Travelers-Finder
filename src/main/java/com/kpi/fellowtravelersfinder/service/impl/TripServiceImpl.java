@@ -56,37 +56,29 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public boolean update(Trip trip, int id) {
-        if (!tripRepository.existsById(id)) {
-            return false;
-        }
-        trip.setId(id);
-        return save(trip) != null;
+        Optional<Trip> update = tripRepository.update(trip);
+        return update.isPresent();
     }
 
     @Override
     public void deleteById(int id) {
-        if(tripRepository.existsById(id)) tripRepository.deleteById(id);
+        tripRepository.delete(id);
     }
 
     public Trip saveTripWithRoute(TripDto trip){
         var userWrap = userService.getByUsername(trip.getUsername());
-        Trip saveTrip = null;
-        if(userWrap.isPresent()) {
-            var route = new Route();
-            route.setDeparturePoint(trip.getDeparturePoint());
-            route.setArrivalPoint(trip.getArrivalPoint());
 
-            var tripToSave = new Trip();
-            tripToSave.setDepartureDate(trip.getDateDep());
-            tripToSave.setArrivalDate(trip.getDateArr());
-            tripToSave.setInitiator(userWrap.get());
-            saveTrip = save(tripToSave);
-            routeService.addRouteToTrip(route, saveTrip.getId());
-        }
+        var route = new Route();
+        route.setDeparturePoint(trip.getDeparturePoint());
+        route.setArrivalPoint(trip.getArrivalPoint());
+        var tripToSave = new Trip();
+        tripToSave.setDepartureDate(trip.getDateDep());
+        tripToSave.setArrivalDate(trip.getDateArr());
+        tripToSave.setInitiator(userWrap);
+        Trip saveTrip = save(tripToSave);
+        routeService.addRouteToTrip(route, saveTrip.getId());
         return saveTrip;
     }
-
-
 
     public List<Trip> findAllByRoute(String departurePoint, String arrivalPoint) {
         return getAll().stream()
@@ -121,6 +113,4 @@ public class TripServiceImpl implements TripService {
                 .limit(pageable.getItemsCount())
                 .collect(Collectors.toList());
     }
-
-
 }
