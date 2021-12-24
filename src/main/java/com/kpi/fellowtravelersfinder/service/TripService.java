@@ -5,7 +5,6 @@ import com.kpi.fellowtravelersfinder.model.Pageable;
 import com.kpi.fellowtravelersfinder.model.Trip;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface TripService {
     List<Trip> getAll();

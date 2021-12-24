@@ -41,16 +41,13 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     public boolean update(Route route, int id) {
-        if (!routeRepository.existsById(id)) {
-            return false;
-        }
-        route.setId(id);
-        return save(route);
+        Optional<Route> update = routeRepository.update(route);
+        return update.isPresent();
     }
 
     @Override
     public void deleteById(int id) {
-        routeRepository.deleteById(id);
+        routeRepository.delete(id);
     }
 
     @Override

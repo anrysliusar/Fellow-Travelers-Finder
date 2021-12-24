@@ -1,32 +1,70 @@
 package com.kpi.fellowtravelersfinder.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 
-import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.Date;
+import java.sql.Date;
 
-@Entity
-@Data
 public class Trip {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-
     private Date DepartureDate;
     private Date ArrivalDate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "initiator_id")
-    @JsonIgnore
     private User initiator;
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    @JoinColumn(name = "route_id")
     private Route route;
 
+    public Trip() {
+    }
 
+    public Trip(Date departureDate, Date arrivalDate, User initiator, Route route) {
+        DepartureDate = departureDate;
+        ArrivalDate = arrivalDate;
+        this.initiator = initiator;
+        this.route = route;
+    }
 
+    public Trip(int id, Date departureDate, Date arrivalDate, User initiator, Route route) {
+        this.id = id;
+        DepartureDate = departureDate;
+        ArrivalDate = arrivalDate;
+        this.initiator = initiator;
+        this.route = route;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getDepartureDate() {
+        return DepartureDate;
+    }
+
+    public void setDepartureDate(Date departureDate) {
+        DepartureDate = departureDate;
+    }
+
+    public Date getArrivalDate() {
+        return ArrivalDate;
+    }
+
+    public void setArrivalDate(Date arrivalDate) {
+        ArrivalDate = arrivalDate;
+    }
+
+    public User getInitiator() {
+        return initiator;
+    }
+
+    public void setInitiator(User initiator) {
+        this.initiator = initiator;
+    }
+
+    public Route getRoute() {
+        return route;
+    }
+
+    public void setRoute(Route route) {
+        this.route = route;
+    }
 }

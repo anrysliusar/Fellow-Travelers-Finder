@@ -28,13 +28,7 @@ public class TripController {
 
     }
 
-    @Operation(summary = "Returns all trips for specific page filtered by Route")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Trips returned",
-                    content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Trip.class)))),
-            @ApiResponse(responseCode = "404", description = "Not found", content = @Content)
-    })
+
     @GetMapping("/filtered")
     public List<Trip> getAll(@RequestParam(value = "departurePoint", defaultValue = "") String departurePoint,
                              @RequestParam(value = "arrivalPoint", defaultValue = "") String arrivalPoint,
@@ -46,13 +40,7 @@ public class TripController {
 
     }
 
-    @Operation(summary = "Returns all trips created by the user")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "All trips returned",
-                    content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Trip.class)))),
-            @ApiResponse(responseCode = "404", description = "Not found", content = @Content)
-    })
+
     @GetMapping()
     public List<Trip> getAll() {
         return tripService.getAll();
@@ -124,14 +112,4 @@ public class TripController {
         return true;
     }
 
-    @Operation(summary = "Returns the trip")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "The trip found",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Trip.class))),
-            @ApiResponse(responseCode = "404", description = "Not found", content = @Content)
-    })
-    @GetMapping("t")
-    public Trip hi(){
-        return new Trip();
-    }
 }

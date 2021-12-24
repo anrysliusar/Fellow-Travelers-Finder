@@ -1,26 +1,45 @@
 package com.kpi.fellowtravelersfinder.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import java.util.List;
-
-@Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Route {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String departurePoint;
     private String arrivalPoint;
 
-    @OneToMany(mappedBy = "route")
-    @JsonIgnore
-    private List<Trip> trips;
+    public Route() {
+    }
+
+    public Route(String arrivalPoint, String departurePoint) {
+        this.departurePoint = departurePoint;
+        this.arrivalPoint = arrivalPoint;
+    }
+
+    public Route(int id, String arrivalPoint, String departurePoint) {
+        this.id = id;
+        this.departurePoint = departurePoint;
+        this.arrivalPoint = arrivalPoint;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDeparturePoint() {
+        return departurePoint;
+    }
+
+    public void setDeparturePoint(String departurePoint) {
+        this.departurePoint = departurePoint;
+    }
+
+    public String getArrivalPoint() {
+        return arrivalPoint;
+    }
+
+    public void setArrivalPoint(String arrivalPoint) {
+        this.arrivalPoint = arrivalPoint;
+    }
 }
